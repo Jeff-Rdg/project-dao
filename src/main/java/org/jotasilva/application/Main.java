@@ -7,9 +7,11 @@ import org.jotasilva.entities.Seller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         SellerDao sellerDao = DaoFactory.createSellerDao();
 
         Seller seller = sellerDao.findById(3);
@@ -21,15 +23,15 @@ public class Main {
 
         List<Seller> list = sellerDao.findByDepartment(department);
 
-        for (Seller obj: list
-             ) {
+        for (Seller obj : list
+        ) {
             System.out.println(obj);
         }
 
         System.out.println("Seller findAll");
         list = sellerDao.findAll();
 
-        for (Seller obj: list
+        for (Seller obj : list
         ) {
             System.out.println(obj);
         }
@@ -47,5 +49,13 @@ public class Main {
         sellerDao.update(seller);
 
         System.out.println(seller);
+
+        System.out.println("Seller Delete");
+        System.out.println("Enter id for delete test: ");
+        int id = scanner.nextInt();
+        sellerDao.deleteById(id);
+
+        System.out.println("Delete completed");
+        scanner.close();
     }
 }
