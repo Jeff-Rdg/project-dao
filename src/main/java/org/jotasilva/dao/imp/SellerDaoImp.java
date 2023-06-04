@@ -62,7 +62,7 @@ public class SellerDaoImp implements SellerDao {
                 "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? " +
                 "WHERE Id = ?";
         try {
-            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setString(2, entity.getEmail());
             preparedStatement.setDate(3, Date.valueOf(entity.getBirthDate()));
@@ -125,7 +125,6 @@ public class SellerDaoImp implements SellerDao {
             Db.closeStatement(preparedStatement);
             Db.closeResultSet(resultSet);
         }
-
     }
 
     private Seller instantiateSeller(ResultSet resultSet, Department department) throws SQLException {
