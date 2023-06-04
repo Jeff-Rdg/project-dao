@@ -9,16 +9,9 @@ import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        Department department = new Department();
-        department.setId(1);
-        department.setName("Compras");
-
-        System.out.println(department);
-
-        Seller seller = new Seller(1, "João","João@gmail.com", LocalDate.of(1995, 2, 3),4000.0, department );
-        System.out.println(seller);
-
         SellerDao sellerDao = DaoFactory.createSellerDao();
-        sellerDao.findAll();
+
+        Seller seller = sellerDao.findById(3);
+        System.out.println(seller);
     }
 }

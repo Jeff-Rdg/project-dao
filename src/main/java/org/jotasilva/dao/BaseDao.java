@@ -9,7 +9,7 @@ public interface BaseDao<T> {
 
     void deleteById(Integer id);
 
-    void findById(Integer id);
+    T findById(Integer id);
 
     List<T> findAll();
 }
