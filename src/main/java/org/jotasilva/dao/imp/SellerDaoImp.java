@@ -56,8 +56,27 @@ public class SellerDaoImp implements SellerDao {
     }
 
     @Override
-    public void update(Seller department) {
+    public void update(Seller entity) {
+        PreparedStatement preparedStatement = null;
+        String sql = "UPDATE seller " +
+                "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? " +
+                "WHERE Id = ?";
+        try {
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, entity.getName());
+            preparedStatement.setString(2, entity.getEmail());
+            preparedStatement.setDate(3, Date.valueOf(entity.getBirthDate()));
+            preparedStatement.setDouble(4, entity.getBaseSalary());
+            preparedStatement.setInt(5, entity.getDepartment().getId());
+            preparedStatement.setInt(6, entity.getId());
 
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+
+            Db.closeStatement(preparedStatement);
+        }
     }
 
     @Override
