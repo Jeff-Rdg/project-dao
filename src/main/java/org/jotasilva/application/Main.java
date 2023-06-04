@@ -5,6 +5,7 @@ import org.jotasilva.dao.factory.DaoFactory;
 import org.jotasilva.entities.Department;
 import org.jotasilva.entities.Seller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Main {
@@ -32,5 +33,11 @@ public class Main {
         ) {
             System.out.println(obj);
         }
+
+        System.out.println("Seller insert");
+        Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", LocalDate.now(), 4000.00, department);
+        sellerDao.insert(newSeller);
+
+        System.out.println("Inserted! new Id: " + newSeller.getId());
     }
 }
