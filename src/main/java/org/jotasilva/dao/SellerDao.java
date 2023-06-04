@@ -3,5 +3,5 @@ package org.jotasilva.dao;
 import org.jotasilva.entities.Seller;
 
 
-public interface SellerDAO extends BaseDAO<Seller> {
+public interface SellerDao extends BaseDao<Seller> {
 }

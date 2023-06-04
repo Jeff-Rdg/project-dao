@@ -2,7 +2,7 @@ package org.jotasilva.dao;
 
 import java.util.List;
 
-public interface BaseDAO<T> {
+public interface BaseDao<T> {
     void insert(T entity);
 
     void update(T department);

@@ -1,5 +1,7 @@
 package org.jotasilva.application;
 
+import org.jotasilva.dao.SellerDao;
+import org.jotasilva.dao.factory.DaoFactory;
 import org.jotasilva.entities.Department;
 import org.jotasilva.entities.Seller;
 
@@ -15,5 +17,8 @@ public class Main {
 
         Seller seller = new Seller(1, "João","João@gmail.com", LocalDate.of(1995, 2, 3),4000.0, department );
         System.out.println(seller);
+
+        SellerDao sellerDao = DaoFactory.createSellerDao();
+        sellerDao.findAll();
     }
 }
