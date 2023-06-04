@@ -1,12 +1,8 @@
 package org.jotasilva.application;
 
 import org.jotasilva.dao.DepartmentDao;
-import org.jotasilva.dao.SellerDao;
 import org.jotasilva.dao.factory.DaoFactory;
 import org.jotasilva.entities.Department;
-import org.jotasilva.entities.Seller;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
