@@ -15,9 +15,10 @@ import java.util.List;
 public class SellerDaoImp implements SellerDao {
     private Connection connection;
 
-    public SellerDaoImp(Connection connection){
+    public SellerDaoImp(Connection connection) {
         this.connection = connection;
     }
+
     @Override
     public void insert(Seller entity) {
 
@@ -46,30 +47,40 @@ public class SellerDaoImp implements SellerDao {
             preparedStatement.setInt(1, id);
 
             resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
-                Department department = new Department();
-                department.setId(resultSet.getInt("DepartmentId"));
-                department.setName(resultSet.getString("depName"));
-
-                Seller seller = new Seller();
-                seller.setId(resultSet.getInt("Id"));
-                seller.setName(resultSet.getString("Name"));
-                seller.setEmail(resultSet.getString("Email"));
-                seller.setBaseSalary(resultSet.getDouble("BaseSalary"));
-                seller.setBirthDate(resultSet.getDate("BirthDate").toLocalDate());
-                seller.setDepartment(department);
+            if (resultSet.next()) {
+                Department department = instantiateDepartment(resultSet);
+                Seller seller = instantiateSeller(resultSet, department);
 
                 return seller;
             }
             return null;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }finally {
+        } finally {
             Db.closeStatement(preparedStatement);
             Db.closeResultSet(resultSet);
         }
 
     }
+
+    private Seller instantiateSeller(ResultSet resultSet, Department department) throws SQLException {
+        Seller seller = new Seller();
+        seller.setId(resultSet.getInt("Id"));
+        seller.setName(resultSet.getString("Name"));
+        seller.setEmail(resultSet.getString("Email"));
+        seller.setBaseSalary(resultSet.getDouble("BaseSalary"));
+        seller.setBirthDate(resultSet.getDate("BirthDate").toLocalDate());
+        seller.setDepartment(department);
+        return seller;
+    }
+
+    private Department instantiateDepartment(ResultSet resultSet) throws SQLException {
+        Department dep = new Department();
+        dep.setId(resultSet.getInt("DepartmentId"));
+        dep.setName(resultSet.getString("depName"));
+        return dep;
+    }
+
 
     @Override
     public List<Seller> findAll() {
